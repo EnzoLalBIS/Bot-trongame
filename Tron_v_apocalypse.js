@@ -1,20 +1,12 @@
-class enemyBot {
+class Blitzkrig {
 
     constructor(name, linkedBike, arena) {
         this.name = name;
         this.linkedBike = linkedBike;
         this.arena = arena;
-
-        // Matrice (⚠️ 2.2 et 2.3 laissés tels quels)
         this.matrice = this.Crea_Matrice(arena);
-
-        // Cache “réel” (utilisable UNIQUEMENT sans simulation)
         this.spaceCache = new Map();
     }
-
-    // =========================
-    // Utils : Cache espace (grille réelle uniquement)
-    // =========================
     getCachedSpace(arena, x, y) {
         const key = `${x},${y}`;
         if (this.spaceCache.has(key)) return this.spaceCache.get(key);
@@ -27,13 +19,12 @@ class enemyBot {
     const moves = arena.getLegalMoves(x, y, false)
         .filter(m => m.collision === false);
 
-    // une seule sortie = couloir
+        
     if (moves.length !== 1) return false;
 
     const nx = moves[0].xMove;
     const ny = moves[0].yMove;
 
-    // distance à l’adversaire
     const op = currentGame.getOtherPlayer().linkedBike;
     const dist = Math.abs(nx - op.x) + Math.abs(ny - op.y);
 
@@ -45,7 +36,6 @@ class enemyBot {
     // =========================
 
     ité_mat(arena, add, ind) {
-        /* insère des points dans les alentours d'une case */
         const l_mat = this.matrice.length;
         const size = arena.gridSize;
 
@@ -347,4 +337,5 @@ class enemyBot {
         }
         return this.choix(opts, arena);
     }
+
 }
