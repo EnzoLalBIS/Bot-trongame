@@ -3,11 +3,7 @@ class Bot {
     this.name = name;
     this.linkedBike = linkedBike;
   }
-  
-  // Put your code here
-  // This should only return an array containing the choosen coordinates
-  // Ex: [2, 1]
-  
+    
   
   Crea_Matrice(arena){
     const matrice = Array.from({ length: arena.gridSize*arena.gridSize}, (_, i) => {
@@ -23,8 +19,6 @@ class Bot {
     return(matrice)
   }
 
-
-  
   choix(ops, arena, matrice) {
     const size = arena.gridSize;   
     let meilleurCoup = ops[0];
