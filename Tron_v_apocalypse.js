@@ -324,7 +324,7 @@ class Blitzkrig {
         }
 
         // 2) Combat proche => Minimax optimisé anti-blocage
-        if (dist_bot < 6) {
+        if (dist_bot < 4) {
             const min_max = this.findBestMinimaxMove(arena, legalMoves, opponentBike);
             if (min_max) return min_max;
         }
@@ -336,5 +336,6 @@ class Blitzkrig {
         return this.choix(opts, arena);
     }
 }
+
 
 
