@@ -1,14 +1,9 @@
-class enemyBot {
+class Blitzkrig {
 
-    constructor(name, linkedBike, arena) {
+    constructor(name, linkedBike) {
         this.name = name;
         this.linkedBike = linkedBike;
-        this.arena = arena;
-
-        // Matrice (⚠️ 2.2 et 2.3 laissés tels quels)
-        this.matrice = this.Crea_Matrice(arena);
-
-        // Cache “réel” (utilisable UNIQUEMENT sans simulation)
+        this.matrice = this.Crea_Matrice();
         this.spaceCache = new Map();
     }
 
@@ -59,9 +54,6 @@ class enemyBot {
             const tile = arena.grid[idx];
             if (!tile) return;
             if (tile.content === "Wall") return;
-
-            // ⚠️ 2.3 non corrigé : la matrice contient des non-nombres,
-            // on évite juste de crasher en n’ajoutant que sur des cases numériques.
             if (typeof this.matrice[idx] === "number") {
                 this.matrice[idx] += add;
             }
@@ -93,14 +85,12 @@ class enemyBot {
         return mat;
     }
 
-    Crea_Matrice(arena) {
-        const size = arena.gridSize;
-
-        // ⚠️ 2.2 NON CORRIGÉ (comme demandé)
+    Crea_Matrice() {
+        const size = 20;
         const center = ((size - 1) / 2) * 0.5;
 
         const matrice = Array.from({ length: size * size }, (_, i) => {
-            const tile = arena.grid[i];
+            const tile = currentArena.grid[i];
             if (!tile) return null;
 
             const x = tile.x;
@@ -142,8 +132,6 @@ class enemyBot {
         const x0 = bestCoup[0];
         const y0 = bestCoup[1];
         const index0 = x0 * size + y0;
-
-        // ⚠️ 2.3 non corrigé : si la matrice n’est pas un nombre, on protège juste le calcul
         const v0 = this.matrice[index0];
         const base0 = (typeof v0 === "number") ? v0 : -99999;
 
@@ -166,7 +154,7 @@ class enemyBot {
             }
         }
 
-        return bestCoup; // [x,y]
+        return bestCoup; 
     }
 
     // =========================
@@ -336,7 +324,7 @@ class enemyBot {
         }
 
         // 2) Combat proche => Minimax optimisé anti-blocage
-        if (dist_bot < 6) {
+        if (dist_bot < 10) {
             const min_max = this.findBestMinimaxMove(arena, legalMoves, opponentBike);
             if (min_max) return min_max;
         }
