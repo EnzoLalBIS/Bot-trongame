@@ -336,3 +336,4 @@ class Blitzkrig {
         return this.choix(opts, arena);
     }
 }
+
